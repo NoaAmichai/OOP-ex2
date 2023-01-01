@@ -43,7 +43,7 @@ public class Ex2_1 {
         return numOfLines;
     }
 
-    public static int getNumOfLinesThreads(String[] fileNames) { //should not be static
+    public static int getNumOfLinesThreads(String[] fileNames) {
         CountLinesThread[] threads = new CountLinesThread[fileNames.length];
         int totalRows = 0;
         for (int i = 0; i < fileNames.length; i++) {
@@ -66,8 +66,8 @@ public class Ex2_1 {
     public static int getNumOfLinesThreadPool(String[] fileNames) {
         ArrayList<Future> futures = new ArrayList<>();
         ExecutorService executor = Executors.newFixedThreadPool(fileNames.length);
-        for (int i = 0; i < fileNames.length; i++) {
-            Future<Integer> future = executor.submit(new CountLinesThreadsPool(fileNames, i));
+        for (String fileName : fileNames) {
+            Future<Integer> future = executor.submit(new CountLinesThreadsPool(fileName));
             futures.add(future);
         }
         executor.shutdown();
@@ -75,8 +75,8 @@ public class Ex2_1 {
         try {
             executor.awaitTermination(1, TimeUnit.DAYS);
             for (Future f : futures) {
-                int x = (Integer) f.get();
-                totalCount += x;
+                int count = (Integer) f.get();
+                totalCount += count;
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -86,38 +86,37 @@ public class Ex2_1 {
 
 
     public static void main(String[] args) {
-        int n = 100;
-        String[] textFiles = createTextFiles(n, 50, 1000000);
+        int n = 1000;
+        String[] textFiles = createTextFiles(n, 5, 100000);
         System.out.println(Arrays.deepToString(textFiles));
 
         //Without Threads
         long startTimeR = System.nanoTime();
         int regularTask = getNumOfLines(textFiles);
         long estimatedTimeR = System.nanoTime() - startTimeR;
-        System.out.println("Num of Lines : " + regularTask);
+        System.out.print("Num of Lines : " + regularTask + " ,");
         System.out.println("Total time without threads: " + estimatedTimeR + " nanoseconds");
 
         //With Threads
         long startTimeThreads = System.nanoTime();
         int threadsTask = getNumOfLinesThreads(textFiles);
         long estimatedTimeT = System.nanoTime() - startTimeThreads;
-        System.out.println("Num of Lines : " + threadsTask);
+        System.out.print("Num of Lines : " + threadsTask + " ,");
         System.out.println("Total time using threads: " + estimatedTimeT + " nanoseconds");
 
         //With Thread Pool
         long startTimeThreadsPool = System.nanoTime();
-        int threadPoolTask = getNumOfLinesThreads(textFiles);
+        int threadPoolTask = getNumOfLinesThreadPool(textFiles);
         long estimatedTimeThreadPoll = System.nanoTime() - startTimeThreadsPool;
-        System.out.println("Num of Lines : " + threadPoolTask);
+        System.out.print("Num of Lines : " + threadPoolTask + " ,");
         System.out.println("Total time using thread pool: " + estimatedTimeThreadPoll + " nanoseconds");
 
 
         //Delete all files
-//        for (int i = 1; i <= n; i++) {
-//            File file = new File("file" + i + ".txt");
-//
-//            file.delete();
-//        }
+        for (int i = 1; i <= n; i++) {
+            File file = new File("file" + i + ".txt");
+            boolean isDeleted = file.delete();
+        }
 
     }
 }

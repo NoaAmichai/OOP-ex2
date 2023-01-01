@@ -4,20 +4,18 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 
 public class CountLinesThreadsPool implements Callable<Integer> {
-    private final String[] fileNames;
+    private final String fileName;
     private int count;
-    private final int index;
 
-    public CountLinesThreadsPool(String[] fileNames,int index) {
-        this.fileNames = fileNames;
+    public CountLinesThreadsPool(String fileName) {
+        this.fileName = fileName;
         this.count = 0;
-        this.index = index;
     }
 
     @Override
     public Integer call() throws Exception {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileNames[index]));
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
             while (reader.readLine() != null) {
                 count++;
             }
