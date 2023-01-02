@@ -1,5 +1,3 @@
-public class Ex2_2 {
-
 public enum TaskType {
     COMPUTATIONAL(1) {
         @Override
@@ -19,35 +17,37 @@ public enum TaskType {
             return "Unknown Task";
         }
     };
+
     private int typePriority;
-    private TaskType(int priority){
+
+    private TaskType(int priority) {
         if (validatePriority(priority)) typePriority = priority;
         else
             throw new IllegalArgumentException("Priority is not an integer");
     }
-    public void setPriority(int priority){
-        if(validatePriority(priority)) this.typePriority = priority;
+
+    public void setPriority(int priority) {
+        if (validatePriority(priority)) this.typePriority = priority;
         else
             throw new IllegalArgumentException("Priority is not an integer");
     }
-    public int getPriorityValue(){
+
+    public int getPriorityValue() {
         return typePriority;
     }
-    public TaskType getType(){
+
+    public TaskType getType() {
         return this;
     }
+
     /**
      * priority is represented by an integer value, ranging from 1 to 10
+     *
      * @param priority
      * @return whether the priority is valid or not
      */
-    private static boolean validatePriority(int priority){
-        if (priority < 1 || priority >10) return false;
+    private static boolean validatePriority(int priority) {
+        if (priority < 1 || priority > 10) return false;
         return true;
-    }
-}
-
-    public static void main(String[] args) {
-        System.out.println(TaskType.IO.getPriorityValue());
     }
 }
