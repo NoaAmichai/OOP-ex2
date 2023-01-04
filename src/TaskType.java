@@ -50,4 +50,5 @@ public enum TaskType {
         if (priority < 1 || priority > 10) return false;
         return true;
     }
+
 }
