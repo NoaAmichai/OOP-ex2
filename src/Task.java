@@ -14,7 +14,7 @@ public class Task<T> implements Callable<T>, Comparable<Task<T>> {
         this.type = TaskType.OTHER; //default TaskType
     }
 
-    public static <T> Task<T> createTask(Callable<T> callable, TaskType type) {
+    public static final <T> Task<T> createTask(Callable<T> callable, TaskType type) {
         return new Task<>(callable, type);
     }
 
