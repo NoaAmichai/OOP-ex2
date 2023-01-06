@@ -76,7 +76,7 @@ public class Ex2 {
             try {
                 executor.awaitTermination(1, TimeUnit.DAYS);
                 for (Future<Integer> f : futures) {
-                    int count =f.get();
+                    int count = (Integer) f.get();
                     totalCount += count;
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -116,7 +116,7 @@ public class Ex2 {
             //Delete all files
             for (int i = 1; i <= n; i++) {
                 File file = new File("file" + i + ".txt");
-                file.delete();
+                boolean isDeleted = file.delete();
             }
 
         }

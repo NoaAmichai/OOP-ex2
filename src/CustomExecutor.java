@@ -25,14 +25,14 @@ public class CustomExecutor {
 
     public <V> Future<V> submit(Callable<V> callable, TaskType type) {
         Task<V> task = Task.createTask(callable, type);
-        currentMaxPriority = Math.min(currentMaxPriority, task.getType().getPriorityValue());
+        currentMaxPriority = Math.max(currentMaxPriority, task.getType().getPriorityValue());
         tasksQueue.add(task);
         return submit(task);
     }
 
     public <V> Future<V> submit(Callable<V> callable) {
         Task<V> task = Task.createTask(callable);
-        currentMaxPriority = Math.min(currentMaxPriority, task.getType().getPriorityValue());
+        currentMaxPriority = Math.max(currentMaxPriority, task.getType().getPriorityValue());
         tasksQueue.add(task);
         return submit(task);
     }
