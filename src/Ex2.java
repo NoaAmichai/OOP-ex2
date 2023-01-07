@@ -76,7 +76,7 @@ public class Ex2 {
             try {
                 executor.awaitTermination(1, TimeUnit.DAYS);
                 for (Future<Integer> f : futures) {
-                    int count =f.get();
+                    int count = f.get();
                     totalCount += count;
                 }
             } catch (InterruptedException | ExecutionException e) {
