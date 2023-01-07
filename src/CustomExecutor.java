@@ -5,15 +5,16 @@ import java.util.concurrent.*;
 
 
 public class CustomExecutor {
-    private PriorityQueue<Task> tasksQueue;
+    private PriorityBlockingQueue<Task> tasksQueue;
+    private PriorityBlockingQueue<Runnable> tasks;
     private final ExecutorService executor;
     private int currentMaxPriority;
 
     public CustomExecutor() {
-        this.tasksQueue = new PriorityQueue<>();
+        this.tasksQueue = new PriorityBlockingQueue<>();
         int numProcessors = getNumProcessors();
 //        this.executor = new ThreadPoolExecutor(numProcessors / 2, numProcessors - 1, 300, TimeUnit.MILLISECONDS,
-//                new PriorityBlockingQueue<>());
+//                tasks);
         this.executor = Executors.newFixedThreadPool(getNumProcessors() / 2);
         this.currentMaxPriority = 0;
     }
@@ -25,14 +26,14 @@ public class CustomExecutor {
 
     public <V> Future<V> submit(Callable<V> callable, TaskType type) {
         Task<V> task = Task.createTask(callable, type);
-        currentMaxPriority = Math.min(currentMaxPriority, task.getType().getPriorityValue());
+        currentMaxPriority = Math.max(currentMaxPriority, task.getType().getPriorityValue());
         tasksQueue.add(task);
         return submit(task);
     }
 
     public <V> Future<V> submit(Callable<V> callable) {
         Task<V> task = Task.createTask(callable);
-        currentMaxPriority = Math.min(currentMaxPriority, task.getType().getPriorityValue());
+        currentMaxPriority = Math.max(currentMaxPriority, task.getType().getPriorityValue());
         tasksQueue.add(task);
         return submit(task);
     }

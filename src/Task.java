@@ -1,8 +1,9 @@
+import java.util.Comparator;
 import java.util.concurrent.Callable;
 
-public class Task<T> implements Callable<T>, Comparable<Task<T>> {
-    private Callable<T> callable;
-    private TaskType type;
+public class Task<T> implements Callable<T>, Comparator<Task<T>> {
+    private final Callable<T> callable;
+    private final TaskType type;
 
     private Task(Callable<T> callable, TaskType type) {
         this.callable = callable;
@@ -14,7 +15,7 @@ public class Task<T> implements Callable<T>, Comparable<Task<T>> {
         this.type = TaskType.OTHER; //default TaskType
     }
 
-    public static final <T> Task<T> createTask(Callable<T> callable, TaskType type) {
+    public static <T> Task<T> createTask(Callable<T> callable, TaskType type) {
         return new Task<>(callable, type);
     }
 
@@ -31,10 +32,9 @@ public class Task<T> implements Callable<T>, Comparable<Task<T>> {
         return type;
     }
 
+
     @Override
-    public int compareTo(Task<T> other) {
-        return this.type.getPriorityValue() - other.getType().getPriorityValue();
+    public int compare(Task<T> o1, Task<T> o2) {
+        return Integer.compare(o1.getType().getPriorityValue(), o2.getType().getPriorityValue());
     }
-
-
 }
