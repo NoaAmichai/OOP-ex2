@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.*;
 public class Ex2 {
-    public class Ex2_1 { //TODO not sure about the class name
+    public static class Ex2_1 { //TODO not sure about the class name
 
         public static String[] createTextFiles(int n, int seed, int bound) {
             String[] filesNames = new String[n];
@@ -87,8 +87,8 @@ public class Ex2 {
 
 
         public static void main(String[] args) {
-            int n = 1000;
-            String[] textFiles = createTextFiles(n, 5, 100000);
+            int n = 10000;
+            String[] textFiles = createTextFiles(n, 5, 10000);
             System.out.println(Arrays.deepToString(textFiles));
 
             //Without Threads
