@@ -87,7 +87,7 @@ public class Ex2 {
 
 
         public static void main(String[] args) {
-            int n = 10000;
+            int n = 1000;
             String[] textFiles = createTextFiles(n, 5, 10000);
             System.out.println(Arrays.deepToString(textFiles));
 

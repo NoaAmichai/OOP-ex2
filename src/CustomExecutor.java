@@ -1,16 +1,20 @@
+import java.util.Comparator;
 import java.util.concurrent.*;
 
 
-public class CustomExecutor extends ThreadPoolExecutor {
+public class CustomExecutor{// extends ThreadPoolExecutor {
     private static final int MIN_PROCESSORS = getNumProcessors() / 2;
     private static final int MAX_PROCESSORS = getNumProcessors() - 1;
-    private static final PriorityBlockingQueue<Runnable> tasksQueue = new PriorityBlockingQueue<>(MIN_PROCESSORS, (task1, task2) -> ((Task<?>) task1).compareTo((Task) task2));
+    private static final PriorityBlockingQueue<Runnable> tasksQueue = new PriorityBlockingQueue<>(MIN_PROCESSORS, Comparator.comparingInt(task -> ((Task) task).getType().getPriorityValue()));
     private int currentMaxPriority;
+    private final ThreadPoolExecutor threadPoolExecutor;
 
 
     public CustomExecutor() {
-        super(MIN_PROCESSORS, MAX_PROCESSORS, 300, TimeUnit.MILLISECONDS, tasksQueue);
-        this.currentMaxPriority = 0;
+        threadPoolExecutor = new ThreadPoolExecutor(MIN_PROCESSORS, MAX_PROCESSORS, 300, TimeUnit.MILLISECONDS, tasksQueue);
+        //super(MIN_PROCESSORS, MAX_PROCESSORS, 300, TimeUnit.MILLISECONDS, tasksQueue);
+
+        //this.currentMaxPriority = Integer.MIN_VALUE;
     }
 
     public static int getNumProcessors() {
@@ -31,9 +35,19 @@ public class CustomExecutor extends ThreadPoolExecutor {
         return submit(task);
     }
 
+//    @Override
+//    protected void afterExecute(Runnable r, Throwable t) {
+//        super.afterExecute(r, t);
+//        if (tasksQueue.peek() != null) {
+//            this.currentMaxPriority = ((Task<?>) tasksQueue.peek()).getType().getPriorityValue();
+//        } else {
+//            this.currentMaxPriority = Integer.MAX_VALUE;
+//        }
+//    }
+
     public <V> Future<V> submit(Task<V> task) {
         tasksQueue.poll();
-        return super.submit(task.getCallable());
+        return threadPoolExecutor.submit(task.getCallable());
     }
 
     public int getCurrentMax() {
@@ -41,7 +55,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
     }
 
     public void gracefullyTerminate() {
-
+        threadPoolExecutor.shutdown();
     }
 
 }

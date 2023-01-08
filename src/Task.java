@@ -36,6 +36,7 @@ public class Task<V> implements Callable<V> ,Comparable<Task<V>>, Runnable{
         return callable;
     }
 
+
     @Override
     public int compareTo(Task other) {
         return Integer.compare(this.type.getPriorityValue(), other.getType().getPriorityValue());
