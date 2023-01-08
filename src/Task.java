@@ -1,7 +1,7 @@
 import java.util.Comparator;
 import java.util.concurrent.Callable;
 
-public class Task<V> implements Callable<V> ,Comparable<Task<V>>{
+public class Task<V> implements Callable<V> ,Comparable<Task<V>>, Runnable{
     private final Callable<V> callable;
     private final TaskType type;
 
@@ -32,10 +32,22 @@ public class Task<V> implements Callable<V> ,Comparable<Task<V>>{
         return type;
     }
 
+    public Callable<V> getCallable() {
+        return callable;
+    }
 
     @Override
     public int compareTo(Task other) {
         return Integer.compare(this.type.getPriorityValue(), other.getType().getPriorityValue());
     }
 
+    @Override
+    public void run() {
+        try {
+            callable.call();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
