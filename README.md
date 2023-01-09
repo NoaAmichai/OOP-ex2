@@ -56,6 +56,7 @@ The CustomExecutor executes the tasks according to their priorities.
 
 *TaskType Class Uml Diagram:*
 
+[TaskType Uml](TaskType.png)
 <img alt="TaskType.png" height="300" src="TaskType.png" width="400"/>
 
 *Task<V> Class Uml Diagram:*
