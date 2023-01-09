@@ -76,14 +76,6 @@ public class Tests {
         }
         customExecutor.submit(callable2, TaskType.IO);
 
-
-//        for(int i = 0;i<100; i++){
-//            Future<String> reverseTask1 = customExecutor.submit(callable2, TaskType.IO);
-//            System.out.println();
-//
-//        }
-//        System.out.println(reverseTask.isDone());
-//        System.out.println(sumTask.isDone());
         final Double totalPrice;
         final String reversed;
         try {

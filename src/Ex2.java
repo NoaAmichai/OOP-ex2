@@ -60,9 +60,9 @@ public class Ex2 {
         /***
          * The method creates an array of CountLinesThread objects and passes each file name to the constructor of a new CountLinesThread object.
          * It then starts each thread using the start method.
-         * Next, the method uses a loop to wait for all the threads to complete using the join method. If an InterruptedException is thrown, it is caught and a RuntimeException is thrown.
-
-         Finally, the method uses a loop to sum up the number of lines counted by each CountLinesThread object and returns the total number of lines.         * @param fileNames an array of file names of the text files to count the number of lines in
+         * Next, the method uses a loop to wait for all the threads to complete using the join method.
+         * Finally, the method uses a loop to sum up the number of lines counted by each CountLinesThread object and returns the total number of lines.
+         * @param fileNames an array of file names of the text files to count the number of lines in
          * @return the total number of lines in all the text files
          */
         public int getNumOfLinesThreads(String[] fileNames) {
@@ -85,6 +85,14 @@ public class Ex2 {
             return totalRows;
         }
 
+        /***
+         * The method creates a new fixed thread pool with a size equal to the number of files and a ArrayList of Future objects.
+         * It then uses a loop to submit a new CountLinesThreadsPool task to the thread pool for each file name and adds the returned Future object to the list of futures.
+         * The method then shuts down the thread pool and waits for all the tasks to complete using the awaitTermination method.
+         * Finally, the method uses a loop to sum up the number of lines counted by each CountLinesThreadsPool task and returns the total number of lines.
+         * @param fileNames  an array of file names of the text files to count the number of lines in
+         * @return the total number of lines in all the text files
+         */
         public int getNumOfLinesThreadPool(String[] fileNames) {
             ArrayList<Future<Integer>> futures = new ArrayList<>();
             ExecutorService executor = Executors.newFixedThreadPool(fileNames.length);
@@ -120,6 +128,7 @@ public class Ex2 {
             System.out.println("WITHOUT THREADS: " + estimatedTimeR + " ms");
 
             Ex2_1 ex2_1 = new Ex2_1();
+            
             //With Threads
             long startTimeThreads = System.currentTimeMillis();
             int threadsTask = ex2_1.getNumOfLinesThreads(textFiles);
