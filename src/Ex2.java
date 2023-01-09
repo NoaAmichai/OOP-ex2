@@ -64,7 +64,7 @@ public class Ex2 {
 
         public int getNumOfLinesThreadPool(String[] fileNames) {
             ArrayList<Future<Integer>> futures = new ArrayList<>();
-            ExecutorService executor = Executors.newFixedThreadPool(fileNames.length/10);
+            ExecutorService executor = Executors.newFixedThreadPool(fileNames.length);
             for (String fileName : fileNames) {
                 Future<Integer> future = executor.submit(new CountLinesThreadsPool(fileName));
                 futures.add(future);
