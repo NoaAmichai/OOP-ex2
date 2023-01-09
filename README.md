@@ -25,10 +25,10 @@ We tried to find why threads work better than threads pool.
 We run the program again but this time with n/2 and n/10 threads in the threads pool(instead of 2000).
 Here are the results:
 
-1000 threads in thread pool
+<br>1000 threads in thread pool</br>
 ![Screenshot from 2023-01-09 12-41-59.png](Screenshot%20from%202023-01-09%2012-41-59.png)
 
-200 threads in thread pool
+<br>200 threads in thread pool</br>
 ![Screenshot from 2023-01-09 12-42-35.png](Screenshot%20from%202023-01-09%2012-42-35.png)
 
 In the above examples, we can see that when the number of threads in the thread pool is smaller, the results of the thread pool are better.<t>
