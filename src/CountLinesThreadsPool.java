@@ -12,7 +12,7 @@ public class CountLinesThreadsPool implements Callable<Integer> {
 
     /***
      * Constructor
-     * @param fileName
+     * @param fileName The name of the file we want to read.
      */
     public CountLinesThreadsPool(String fileName) {
         this.fileName = fileName;

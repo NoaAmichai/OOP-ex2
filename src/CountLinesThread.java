@@ -10,7 +10,7 @@ public class CountLinesThread extends Thread {
 
     /***
      * Constructor
-     * @param fileName
+     * @param fileName The name of the file we want to read.
      */
     public CountLinesThread(String fileName) {
         this.fileName = fileName;

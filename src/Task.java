@@ -21,7 +21,8 @@ public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Ta
 
     /***
      *This constructor calls the superclass's (FutureTask) constructor and passes it the Callable object.
-     *It then stores the Callable object in the corresponding field and sets the task type to the default value TaskType.OTHER and the isDone field to false.
+     *It then stores the Callable object in the corresponding field and sets the task type to the default
+     * value TaskType.OTHER and the isDone field to false.
      * @param callable the Callable object to be wrapped by the Task object
      */
     private Task(Callable<V> callable) {

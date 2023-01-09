@@ -54,7 +54,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
      * function submit(task)
      * @param callable a callable function.
      * @return returns the Submit value of the function submit(task)
-     * @param <V> the return is generic so we can use all types
+     * @param <V> the return is generic,so we can use all types
      */
     public <V> Future<V> submit(Callable<V> callable) {
         Task<V> task = Task.createTask(callable);
@@ -68,7 +68,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
      * (that is possible because it is of type future)
      * @param task a generic task
      * @return returns task (future) after it is sent to the pool
-     * @param <V>
+     * @param <V> the return is generic, so we can use all types.
      */
     public <V> Future<V> submit(Task<V> task) {
         if(task != null) {
