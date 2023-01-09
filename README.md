@@ -35,12 +35,10 @@ In the above examples, we can see that when the number of threads in the thread 
 Creating threads is a costly operation, so when the number of threads in the thread pool is equal to the number of files we create, all the benefits of the thread pool are lost.
 
 *CountLinesThread Class Uml Diagram:* 
-  
-<div style="float:left;margin:0 10px 10px 0" markdown="1">
-    ![CountLinesThread.png](src%2FCountLinesThread.png)
-</div>
+
+![CountLinesThread.png](src%2FCountLinesThread.png)
 
 *CountLinesThreadPool Class Uml Diagram:*
-<div style="float:left;margin:0 10px 10px 0" markdown="1">
-    ![CountLinesThreadsPool.png](src%2FCountLinesThreadsPool.png)
-</div>
+
+![CountLinesThreadsPool.png](src%2FCountLinesThreadsPool.png)
+
