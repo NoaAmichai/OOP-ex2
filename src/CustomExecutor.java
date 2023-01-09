@@ -20,6 +20,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
         this.currentMaxPriority = new AtomicInteger(Integer.MAX_VALUE);
     }
 
+
     public static int getNumProcessors() {
         return Runtime.getRuntime().availableProcessors();
     }
@@ -39,8 +40,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
             maxArray.getAndIncrement(task.getType().getPriorityValue());
             for (int i = 1; i < maxArray.length(); i++) {
                 if (maxArray.get(i) != 0) {
-                    currentMaxPriority.getAndIncrement();
-                    //System.out.println(maxArray);
+                    currentMaxPriority.set(i);
                     break;
                 }
             }
@@ -57,13 +57,12 @@ public class CustomExecutor extends ThreadPoolExecutor {
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
         if (r instanceof FutureTask<?>) {
-//            System.out.println(((FutureTask<?>) r).isDone());
             maxArray.getAndDecrement(((Task<?>) r).getType().getPriorityValue());
-        }
-        for (int i = 1; i < maxArray.length(); i++) {
-            if (maxArray.get(i) != 0) {
-                currentMaxPriority.set(i);
-                break;
+            for (int i = 1; i < maxArray.length(); i++) {
+                if (maxArray.get(i) != 0) {
+                    currentMaxPriority.set(i);
+                    break;
+                }
             }
         }
         super.afterExecute(r, t);
