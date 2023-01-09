@@ -40,7 +40,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
             for (int i = 1; i < maxArray.length(); i++) {
                 if (maxArray.get(i) != 0) {
                     currentMaxPriority.getAndIncrement();
-                    System.out.println(maxArray);
+                    //System.out.println(maxArray);
                     break;
                 }
             }
