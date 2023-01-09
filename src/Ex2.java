@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.*;
 public class Ex2 {
@@ -64,7 +63,6 @@ public class Ex2 {
         }
 
         public static int getNumOfLinesThreadPool(String[] fileNames) {
-
             ArrayList<Future<Integer>> futures = new ArrayList<>();
             ExecutorService executor = Executors.newFixedThreadPool(fileNames.length);
             for (String fileName : fileNames) {
@@ -87,31 +85,31 @@ public class Ex2 {
 
 
         public static void main(String[] args) {
-            int n = 1000;
-            String[] textFiles = createTextFiles(n, 5, 10000);
-            System.out.println(Arrays.deepToString(textFiles));
+            int n = 2000;
+            String[] textFiles = createTextFiles(n, 10, 20000);
+            System.out.println("n = 2000, seed = 10 , bound = 20,000");
 
             //Without Threads
-            long startTimeR = System.nanoTime();
+            long startTimeR = System.currentTimeMillis();
             int regularTask = getNumOfLines(textFiles);
-            long estimatedTimeR = System.nanoTime() - startTimeR;
-            System.out.print("Num of Lines : " + regularTask + " ,");
-            System.out.println("Total time without threads: " + estimatedTimeR + " nanoseconds");
+            long estimatedTimeR = System.currentTimeMillis() - startTimeR;
+            System.out.print("Count: " + regularTask + " ,");
+            System.out.println("WITHOUT THREADS: " + estimatedTimeR + " ms");
+
 
             //With Threads
-            long startTimeThreads = System.nanoTime();
+            long startTimeThreads = System.currentTimeMillis();
             int threadsTask = getNumOfLinesThreads(textFiles);
-            long estimatedTimeT = System.nanoTime() - startTimeThreads;
-            System.out.print("Num of Lines : " + threadsTask + " ,");
-            System.out.println("Total time using threads: " + estimatedTimeT + " nanoseconds");
+            long estimatedTimeT = System.currentTimeMillis() - startTimeThreads;
+            System.out.print("Count: " + threadsTask + " ,");
+            System.out.println("THREADS: " + estimatedTimeT + " ms");
 
             //With Thread Pool
-            long startTimeThreadsPool = System.nanoTime();
+            long startTimeThreadsPool = System.currentTimeMillis();
             int threadPoolTask = getNumOfLinesThreadPool(textFiles);
-            long estimatedTimeThreadPoll = System.nanoTime() - startTimeThreadsPool;
-            System.out.print("Num of Lines : " + threadPoolTask + " ,");
-            System.out.println("Total time using thread pool: " + estimatedTimeThreadPoll + " nanoseconds");
-
+            long estimatedTimeThreadPool = System.currentTimeMillis() - startTimeThreadsPool;
+            System.out.print("Count: " + threadPoolTask + " ,");
+            System.out.println("THREAD POOL: " + estimatedTimeThreadPool + " ms");
 
             //Delete all files
             for (int i = 1; i <= n; i++) {
