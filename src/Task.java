@@ -4,7 +4,6 @@ import java.util.concurrent.FutureTask;
 public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Task<V>> {
     private final Callable<V> callable;
     private final TaskType type;
-    public boolean isDone;
 
     /***
      * This constructor calls the superclass's (FutureTask) constructor and passes it the Callable object.
@@ -16,7 +15,6 @@ public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Ta
         super(callable);
         this.callable = callable;
         this.type = type;
-        this.isDone = false;
     }
 
     /***
@@ -29,7 +27,6 @@ public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Ta
         super(callable);
         this.callable = callable;
         this.type = TaskType.OTHER; //default TaskType
-        this.isDone = false;
     }
 
     /***

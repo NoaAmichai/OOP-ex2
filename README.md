@@ -46,3 +46,8 @@ Creating threads is a costly operation, so when the number of threads in the thr
 
 <img alt="CountLinesThreadsPool.png" height="300" src="src%2FCountLinesThreadsPool.png" width="400"/>
 
+### Part 2
+
+
+
+

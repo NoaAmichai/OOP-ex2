@@ -128,7 +128,7 @@ public class Ex2 {
             System.out.println("WITHOUT THREADS: " + estimatedTimeR + " ms");
 
             Ex2_1 ex2_1 = new Ex2_1();
-            
+
             //With Threads
             long startTimeThreads = System.currentTimeMillis();
             int threadsTask = ex2_1.getNumOfLinesThreads(textFiles);
