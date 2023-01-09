@@ -1,9 +1,10 @@
 
 ## _OOP - Ex 2 :_
 
-### Part 1
 
-In this assignment, we will create several text files and calculate the total number of lines in them.
+### _Part 1 :_
+
+In this part of the assignment, we will create several text files and calculate the total number of lines in them.
 
 We will use three methods:
 * The normal method without using threads.
@@ -22,10 +23,9 @@ Additionally, with a smaller number of files and fewer lines per file, both the 
 
 However, when the number of files and the number of lines in each file increase (over approximately 10,000), using threads performs better running times.
 </br>
-
 We tried to find why threads work better than threads pool.
 We run the program again but this time with n/2 and n/10 threads in the threads pool(instead of 2000).
-Here are the results:
+<br>Here are the results:</br>
 
 <br>1000 threads in thread pool</br>
 
@@ -46,8 +46,26 @@ Creating threads is a costly operation, so when the number of threads in the thr
 
 <img alt="CountLinesThreadsPool.png" height="300" src="src%2FCountLinesThreadsPool.png" width="400"/>
 
-### Part 2
+### _Part 2 :_
 
+In this part of the assignment, we create a new type of ThreadPool that represents an asynchronous task with a priority and type. 
+The Task class represents an operation that can be run asynchronously and can return a value of any type.
+The CustomExecutor class represents a new type of ThreadPool that supports a queue of tasks with priorities. 
+The CustomExecutor creates a Task before its entry into the queue through the transfer of a Callable and an enum of type TaskType. 
+The CustomExecutor executes the tasks according to their priorities.
 
+*TaskType Class Uml Diagram:*
 
+<img alt="TaskType.png" height="300" src="TaskType.png" width="400"/>
 
+*Task<V> Class Uml Diagram:*
+
+<img alt="Task&lt;V&gt;.png" height="300" src="Task%3CV%3E.png" width="400"/>
+
+*Task Comparator Class Uml Diagram:*
+
+<img alt="TaskComparator.png" height="300" src="TaskComparator.png" width="400"/>
+
+*Custom Executor Class Uml Diagram:*
+
+<img alt="CustomExecutor.png" height="300" src="CustomExecutor.png" width="400"/>
