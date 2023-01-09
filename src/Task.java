@@ -1,18 +1,23 @@
-import java.util.Comparator;
 import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
-public class Task<V> implements Callable<V> ,Comparable<Task<V>>, Runnable{
+public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Task<V>>{
     private final Callable<V> callable;
     private final TaskType type;
+    public boolean isDone;
 
     private Task(Callable<V> callable, TaskType type) {
+        super(callable);
         this.callable = callable;
         this.type = type;
+        this.isDone = false;
     }
 
     private Task(Callable<V> callable) {
+        super(callable);
         this.callable = callable;
         this.type = TaskType.OTHER; //default TaskType
+        this.isDone = false;
     }
 
     public static <V> Task<V> createTask(Callable<V> callable, TaskType type) {
@@ -36,19 +41,8 @@ public class Task<V> implements Callable<V> ,Comparable<Task<V>>, Runnable{
         return callable;
     }
 
-
     @Override
-    public int compareTo(Task other) {
-        return Integer.compare(this.type.getPriorityValue(), other.getType().getPriorityValue());
-    }
-
-    @Override
-    public void run() {
-        try {
-            callable.call();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+    public int compareTo(Task<V> task) {
+        return Integer.compare(this.type.getPriorityValue(), task.getType().getPriorityValue());
     }
 }
