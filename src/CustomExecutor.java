@@ -69,14 +69,6 @@ public class CustomExecutor extends ThreadPoolExecutor {
         super.afterExecute(r, t);
     }
 
-//    @Override
-//    protected void beforeExecute(Thread t, Runnable r) {
-//        if (r instanceof Task<?>) {
-//            ((Task<?>) r).isDone = true;
-//        }
-//        super.beforeExecute(t, r);
-//    }
-
     public void gracefullyTerminate() {
         super.shutdown();
     }
