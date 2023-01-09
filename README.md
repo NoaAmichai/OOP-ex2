@@ -1,6 +1,8 @@
 
 ## _OOP - Ex 2 :_
 
+### Part 1
+
 In this assignment, we will create several text files and calculate the total number of lines in them.
 
 We will use three methods:
@@ -26,19 +28,21 @@ We run the program again but this time with n/2 and n/10 threads in the threads 
 Here are the results:
 
 <br>1000 threads in thread pool</br>
+
 ![Screenshot from 2023-01-09 12-41-59.png](Screenshot%20from%202023-01-09%2012-41-59.png)
 
 <br>200 threads in thread pool</br>
+
 ![Screenshot from 2023-01-09 12-42-35.png](Screenshot%20from%202023-01-09%2012-42-35.png)
 
 In the above examples, we can see that when the number of threads in the thread pool is smaller, the results of the thread pool are better.<t>
 Creating threads is a costly operation, so when the number of threads in the thread pool is equal to the number of files we create, all the benefits of the thread pool are lost.
 
-*CountLinesThread Class Uml Diagram:* 
+*CountLinesThread Class Uml Diagram:*
 
-![CountLinesThread.png](src%2FCountLinesThread.png)
+<img alt="CountLinesThread.png" height="300" src="src%2FCountLinesThread.png" width="200"/>
 
 *CountLinesThreadPool Class Uml Diagram:*
 
-![CountLinesThreadsPool.png](src%2FCountLinesThreadsPool.png)
+<img alt="CountLinesThreadsPool.png" height="300" src="src%2FCountLinesThreadsPool.png" width="200"/>
 
