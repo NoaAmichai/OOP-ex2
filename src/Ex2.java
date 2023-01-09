@@ -42,7 +42,7 @@ public class Ex2 {
             return numOfLines;
         }
 
-        public static int getNumOfLinesThreads(String[] fileNames) {
+        public int getNumOfLinesThreads(String[] fileNames) {
             CountLinesThread[] threads = new CountLinesThread[fileNames.length];
             int totalRows = 0;
             for (int i = 0; i < fileNames.length; i++) {
@@ -62,7 +62,7 @@ public class Ex2 {
             return totalRows;
         }
 
-        public static int getNumOfLinesThreadPool(String[] fileNames) {
+        public int getNumOfLinesThreadPool(String[] fileNames) {
             ArrayList<Future<Integer>> futures = new ArrayList<>();
             ExecutorService executor = Executors.newFixedThreadPool(fileNames.length);
             for (String fileName : fileNames) {
@@ -96,17 +96,17 @@ public class Ex2 {
             System.out.print("Count: " + regularTask + " ,");
             System.out.println("WITHOUT THREADS: " + estimatedTimeR + " ms");
 
-
+            Ex2_1 ex2_1 = new Ex2_1();
             //With Threads
             long startTimeThreads = System.currentTimeMillis();
-            int threadsTask = getNumOfLinesThreads(textFiles);
+            int threadsTask = ex2_1.getNumOfLinesThreads(textFiles);
             long estimatedTimeT = System.currentTimeMillis() - startTimeThreads;
             System.out.print("Count: " + threadsTask + " ,");
             System.out.println("THREADS: " + estimatedTimeT + " ms");
 
             //With Thread Pool
             long startTimeThreadsPool = System.currentTimeMillis();
-            int threadPoolTask = getNumOfLinesThreadPool(textFiles);
+            int threadPoolTask = ex2_1.getNumOfLinesThreadPool(textFiles);
             long estimatedTimeThreadPool = System.currentTimeMillis() - startTimeThreadsPool;
             System.out.print("Count: " + threadPoolTask + " ,");
             System.out.println("THREAD POOL: " + estimatedTimeThreadPool + " ms");
