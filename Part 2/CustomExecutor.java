@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 public class CustomExecutor extends ThreadPoolExecutor {
     private static final int MIN_PROCESSORS = getNumProcessors() / 2;
     private static final int MAX_PROCESSORS = getNumProcessors() - 1;
-    private static final PriorityBlockingQueue<Runnable> tasksQueue = new PriorityBlockingQueue<>(MIN_PROCESSORS, new TaskComparator());
+    private static final PriorityBlockingQueue<Runnable> tasksQueue = new PriorityBlockingQueue<>(11, new TaskComparator());
     private final AtomicInteger currentMaxPriority;
     private final AtomicIntegerArray maxArray;
 
@@ -93,30 +93,6 @@ public class CustomExecutor extends ThreadPoolExecutor {
         return currentMaxPriority;
     }
 
-//    /***
-//     * Our function Overrides the afterExecute of ThreadPoolExecutor,first decreases the counter in our priority array
-//     * for this task, then updates max priority (if queue is empty it will leave max priority as the previous one).
-//     * then the function uses ThreadPoolExecutors afterExecute.
-//     * @param r the runnable that has completed
-//     * @param t the exception that caused termination, or null if
-//     * execution completed normally
-//     */
-//    @Override
-//    protected void afterExecute(Runnable r, Throwable t) {
-//        if (t == null) {
-//            if (r instanceof FutureTask<?>) {
-//                maxArray.getAndDecrement(((Task<?>) r).getType().getPriorityValue());
-//                for (int i = 1; i < maxArray.length(); i++) {
-//                    if (maxArray.get(i) != 0) {
-//                        currentMaxPriority.set(i);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        super.afterExecute(r, t);
-//    }
-
 
     /***
      * This method is called before a Thread in the ThreadPoolExecutor begins execution of a Runnable task.
@@ -131,7 +107,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         if (r instanceof FutureTask<?>){
-            maxArray.getAndDecrement(((Task<?>) r).getType().getPriorityValue());
+            maxArray.getAndDecrement(((MyAdapter<?>) r).getPriority());
             for (int i = 1; i < maxArray.length(); i++) {
                 if (maxArray.get(i) != 0) {
                     currentMaxPriority.set(i);
