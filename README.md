@@ -48,4 +48,4 @@ The CustomExecutor executes the tasks according to their priorities.
 
 #### *Uml Diagram:*
 
-<img alt="Part 2.png" height="500" src="Part%202%2FPart%202.png" width="300"/>
+<img alt="Part 2.png" height="600" src="Part%202%2FPart%202.png" width="400"/>
