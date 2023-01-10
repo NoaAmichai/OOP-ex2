@@ -79,8 +79,9 @@ public class CustomExecutor extends ThreadPoolExecutor {
                     break;
                 }
             }
-            super.execute(task);
-            return task;
+            MyAdapter<V> taskAdapter=new MyAdapter<>(task);
+            super.execute(taskAdapter);
+            return taskAdapter;
         } else throw new NullPointerException();
     }
 

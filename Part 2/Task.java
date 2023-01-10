@@ -74,4 +74,8 @@ public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Ta
     public int compareTo(Task<V> task) {
         return Integer.compare(this.type.getPriorityValue(), task.getType().getPriorityValue());
     }
+
+    public Callable<V> getCallable() {
+        return callable;
+    }
 }
