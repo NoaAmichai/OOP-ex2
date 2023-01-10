@@ -2,23 +2,20 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 /***
- * MyAdapter task to adapt object to future.
- * It contains priority and a callable function
+ * MyAdapter task to adapt object to futureTask.
  * @param <T>
  */
 public class MyAdapter<T> extends FutureTask<T> {
-    private int priority;
-    private Callable<T> callable;
+
+    private final Task<T> task;
 
     /***
-     * constructor that gets a task and initialises priority and callable
-     * and calls the super for futureTask's Constructor.
-     * @param task
+     * Calls the super for futureTask's Constructor.
+     * @param task gets a Task
      */
     public MyAdapter(Task<T> task) {
-        super(task.getCallable());
-        this.callable=task.getCallable();
-        this.priority=task.getType().getPriorityValue();
+        super(task);
+        this.task = task;
     }
 
     /***
@@ -26,6 +23,6 @@ public class MyAdapter<T> extends FutureTask<T> {
      * @return returns priority.
      */
     public int getPriority(){
-        return this.priority;
+        return this.task.getType().getPriorityValue();
     }
 }

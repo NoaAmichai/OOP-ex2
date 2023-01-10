@@ -107,7 +107,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
      */
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-        if (r instanceof FutureTask<?>){
+        if (r instanceof FutureTask<?>) {
             maxArray.getAndDecrement(((MyAdapter<?>) r).getPriority());
             for (int i = 1; i < maxArray.length(); i++) {
                 if (maxArray.get(i) != 0) {
