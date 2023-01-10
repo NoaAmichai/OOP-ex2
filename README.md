@@ -34,13 +34,9 @@ Here are the results:<br>
 In the above examples, we can see that when the number of threads in the thread pool is smaller, the results of the thread pool are better.<br>
 Creating threads is a costly operation, so when the number of threads in the thread pool is equal to the number of files we create, all the benefits of the thread pool are lost.<br>
 
-*CountLinesThread Class Uml Diagram:*
+#### *Uml Diagram:*
 
-<img alt="CountLinesThread.png" height="300" src="CountLinesThread.png" width="400"/>
-
-*CountLinesThreadPool Class Uml Diagram:*
-
-<img alt="CountLinesThreadsPool.png" height="300" src="CountLinesThreadsPool.png" width="400"/>
+![Part 1.png](Part%201%2FPart%201.png)
 
 ### _Part 2 :_
 
@@ -50,10 +46,6 @@ The CustomExecutor class represents a new type of ThreadPool that supports a que
 The CustomExecutor creates a Task before its entry into the queue through the transfer of a Callable and an enum of type TaskType. 
 The CustomExecutor executes the tasks according to their priorities.
 
-*TaskType Class Uml Diagram:* [Task Type Uml](TaskType.png)<br>
-  
-*Task<V> Class Uml Diagram:* [Task<V> Uml](Task<V>.png)<br>
+#### *Uml Diagram:*
 
-*Task Comparator Class Uml Diagram:* [Task Comparator Uml](TaskComparator.png)<br>
-
-*Custom Executor Class Uml Diagram:* [Custom Executor Uml](CustomExecutor.png)<br>
+<img alt="Part 2.png" height="600" src="Part%202%2FPart%202.png" width="400"/>
