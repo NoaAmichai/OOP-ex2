@@ -1,30 +1,25 @@
 import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 
-public class Task<V> extends FutureTask<V> implements Callable<V>, Comparable<Task<V>> {
+public class Task<V> implements Callable<V>, Comparable<Task<V>> {
     private final Callable<V> callable;
     private final TaskType type;
 
     /***
-     * This constructor calls the superclass's (FutureTask) constructor and passes it the Callable object.
-     * It then stores the Callable object and task type in the corresponding fields and sets the isDone field to false.
+     *The constructor gets callable and TaskType stores them in the corresponding fields.
      * @param callable  the Callable object to be wrapped by the Task object
      * @param type  the task type of the Task object
      */
     private Task(Callable<V> callable, TaskType type) {
-        super(callable);
         this.callable = callable;
         this.type = type;
     }
 
     /***
-     *This constructor calls the superclass's (FutureTask) constructor and passes it the Callable object.
-     *It then stores the Callable object in the corresponding field and sets the task type to the default
-     * value TaskType.OTHER and the isDone field to false.
+     *This constructor gets a callable parameter and sets the task type to the default value
+     *TaskType.OTHER.
      * @param callable the Callable object to be wrapped by the Task object
      */
     private Task(Callable<V> callable) {
-        super(callable);
         this.callable = callable;
         this.type = TaskType.OTHER; //default TaskType
     }
