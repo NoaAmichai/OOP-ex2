@@ -64,10 +64,11 @@ public class CustomExecutor extends ThreadPoolExecutor {
     /***
      * the function gets a task ,makes sure it's not null(otherwise throws null pointer exception).Our function then
      * increases our Array (that holds what priorities we have in the queue) by 1 to the location of the specific
-     * priority ,next it updates max priority based on the new array. Finally, it executes tasks Task and returns it
+     * priority ,next it updates max priority based on the new array. After that, it uses MyAdapter to adapt the task
+     * to a future(MyAdapter is of type future) and executes the adapter task and returns the MyAdapter object.
      * (that is possible because it is of type future)
      * @param task a generic task
-     * @return returns task (future) after it is sent to the pool
+     * @return returns MyAdapter (future) after it is sent to the pool
      * @param <V> the return is generic, so we can use all types.
      */
     public <V> Future<V> submit(Task<V> task) {
@@ -96,8 +97,8 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
     /***
      * This method is called before a Thread in the ThreadPoolExecutor begins execution of a Runnable task.
-     * If the given Runnable task is an instance of FutureTask, it decreases the value at the index of the
-     * priority of the Task object in the maxArray AtomicIntegerArray. Then, it iterates through the maxArray
+     * If the given Runnable task is an instance of MyAdapter, it decreases the value at the index of the
+     * priority of the Task in the maxArray AtomicIntegerArray. Then, it iterates through the maxArray
      * and looks for the first index with a non-zero value, and sets the currentMaxPriority to that index.
      * Finally, it calls the superclass's beforeExecute() method.
      *
