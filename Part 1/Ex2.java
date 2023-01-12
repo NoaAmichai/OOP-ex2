@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 public class Ex2 {
-    public static class Ex2_1 { //TODO not sure about the class name
+    public static class Ex2_1 {
 
         /***
          * The method creates an array of file names, creates a Random object with the specified seed, and then uses a loop to create n text files.

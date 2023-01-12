@@ -62,14 +62,16 @@ public class CustomExecutor extends ThreadPoolExecutor {
     }
 
     /***
-     * the function gets a task ,makes sure it's not null(otherwise throws null pointer exception).Our function then
-     * increases our Array (that holds what priorities we have in the queue) by 1 to the location of the specific
-     * priority ,next it updates max priority based on the new array. After that, it uses MyAdapter to adapt the task
-     * to a future(MyAdapter is of type future) and executes the adapter task and returns the MyAdapter object.
-     * (that is possible because it is of type future)
-     * @param task a generic task
-     * @return returns MyAdapter (future) after it is sent to the pool
-     * @param <V> the return is generic, so we can use all types.
+     * Submits a task of type Task<V> to the thread pool executor.
+     * It increments the value of the element at the index equal to the priority of the task in the maxArray AtomicIntegerArray,
+     * then iterates through the maxArray to find the current maximum priority. It then sets the value of currentMaxPriority to this value.
+     * It creates a new TaskWrapper<V> object, which wraps the task's callable and the task's priority.
+     * Then it calls the execute method of the parent class, ThreadPoolExecutor, to submit the task to the thread pool.
+     * Finally, it returns the Future object associated with the TaskWrapper<V> object.
+     *
+     * @param task the task to be submitted
+     * @return a Future representing pending completion of the task
+     * @throws NullPointerException if task is null
      */
     public <V> Future<V> submit(Task<V> task) {
         if (task != null) {
@@ -80,9 +82,9 @@ public class CustomExecutor extends ThreadPoolExecutor {
                     break;
                 }
             }
-            MyAdapter<V> taskAdapter=new MyAdapter<>(task);
-            super.execute(taskAdapter);
-            return taskAdapter;
+            TaskWrapper<V> taskWrapper = new TaskWrapper<>(task.getCallable(), task.getType().getPriorityValue());
+            super.execute(taskWrapper);
+            return taskWrapper;
         } else throw new NullPointerException();
     }
 
@@ -96,19 +98,17 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
 
     /***
-     * This method is called before a Thread in the ThreadPoolExecutor begins execution of a Runnable task.
-     * If the given Runnable task is an instance of MyAdapter, it decreases the value at the index of the
-     * priority of the Task in the maxArray AtomicIntegerArray. Then, it iterates through the maxArray
-     * and looks for the first index with a non-zero value, and sets the currentMaxPriority to that index.
-     * Finally, it calls the superclass's beforeExecute() method.
+     * This method is called before a task is executed by the thread pool.
+     * If the task is a FutureTask, it decrements the value of the element at the index equal to the priority of the task in the maxArray AtomicIntegerArray,
+     * and then iterates through the maxArray to find the current maximum priority. It then sets the value of currentMaxPriority AtomicInteger to this value.
      *
-     * @param t the Thread that will run the task
-     * @param r the Runnable task that the Thread will execute
+     * @param t the thread that will run task r
+     * @param r the task that will be executed
      */
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         if (r instanceof FutureTask<?>) {
-            maxArray.getAndDecrement(((MyAdapter<?>) r).getPriority());
+            maxArray.getAndDecrement(((TaskWrapper<?>) r).getPriority());
             for (int i = 1; i < maxArray.length(); i++) {
                 if (maxArray.get(i) != 0) {
                     currentMaxPriority.set(i);
@@ -120,10 +120,17 @@ public class CustomExecutor extends ThreadPoolExecutor {
     }
 
     /***
-     * Initiates an orderly shutdown in which previously submitted tasks are executed, but no new tasks will be accepted.
+     * Terminates this executor in a graceful way.
+     * It calls the shutdown method of the parent class, ThreadPoolExecutor, and waits for termination to complete.
+     * If the termination is interrupted, a runtime exception is thrown.
      */
     public void gracefullyTerminate() {
-        super.shutdown();
+        try {
+            super.shutdown();
+            super.awaitTermination(1, TimeUnit.HOURS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

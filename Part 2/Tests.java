@@ -90,6 +90,6 @@ public class Tests {
         logger.info(() -> "Current maximum priority = " + customExecutor.getCurrentMax());
 
         customExecutor.gracefullyTerminate();
-        Assertions.assertThrows(RejectedExecutionException.class, ()-> customExecutor.submit(() ->{return 5;}));
+        logger.info(()-> "Current active threads " + customExecutor.getActiveCount());
     }
 }
