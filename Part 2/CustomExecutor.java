@@ -3,9 +3,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
 /***
- * customExecutor that extends ThreadPoolExecutor.it's parameters are the 1,2)min and max amount of processors that our
- * pool will use,3)our priority blocking queue(its safe for threads and also organized based on priority,4) A parameter
- * that holds our max priority and 5)Finally our Array that helps us know our priorities that are in the queue.
+ * customExecutor that extends ThreadPoolExecutor.it's parameters are:
+ * 1,2) min and max amount of processors that our pool will use.
+ * 3) our priority blocking queue (its safe for threads and also organized based on priority).
+ * 4) A parameter that holds our max priority. 
+ * 5) Array that helps us know our priorities that are in the queue.
  */
 public class CustomExecutor extends ThreadPoolExecutor {
     private static final int MIN_PROCESSORS = getNumProcessors() / 2;
